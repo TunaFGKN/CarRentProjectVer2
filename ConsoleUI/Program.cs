@@ -14,13 +14,12 @@ namespace ConsoleUI
             ColorManager colorManager = new ColorManager(new EfColorDal());
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             
+            
+            
             //colorManager.Add(new Color { ColorId = 6, ColorName = "Gray" }); colorManager.Add(new Color { ColorId = 7, ColorName = "Green" });
             //brandManager.Add(new Brand { BrandId = 6, BrandName = "Opel" }); brandManager.Add(new Brand { BrandId = 7, BrandName = "Volkswagen" });
             //brandManager.Update(new Brand { BrandId = 4, BrandName = "Mercedes" });
-
-
-
-
+            
             //EfTest();
             //InMemoryTest();
         }
