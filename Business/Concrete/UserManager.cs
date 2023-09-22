@@ -21,7 +21,7 @@ namespace Business.Concrete
         public Result Add(User user)
         {
             _userDal.Add(user);
-            return new SuccessResult();
+            return new SuccessResult("User added");
         }
 
         public Result Delete(User user)
@@ -32,7 +32,7 @@ namespace Business.Concrete
 
         public DataResult<List<User>> GetAll()
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll());
+            return new SuccessDataResult<List<User>>(_userDal.GetAll(),"Users listed");
         }
 
         public DataResult<User> GetById(int userId)
