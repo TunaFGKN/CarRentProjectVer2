@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -22,7 +23,7 @@ namespace Business.Concrete
         {
             if (rental.ReturnDate == null)
             {
-                return new ErrorResult("Return date cannot be null.");
+                return new ErrorResult(Messages.ReturnDateNull);
             }
             _rentalDal.Add(rental);
             return new SuccessResult();

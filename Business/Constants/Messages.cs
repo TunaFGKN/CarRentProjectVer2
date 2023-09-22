@@ -22,5 +22,6 @@ namespace Business.Constants
         public static string BrandDeleted = "Brand successfully deleted";
         public static string BrandUpdated = "Brand successfully updated";
         public static string BrandsListed = "Brands listed";
+        public static string ReturnDateNull = "Return date cannot be null.";
     }
 }
