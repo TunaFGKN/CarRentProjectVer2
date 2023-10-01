@@ -1,6 +1,13 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Business.DependencyResolvers.Autofac;
 using WebAPI;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
+// Lines 7 and 8 for autofac configuration
+
 var startup = new Startup(builder.Configuration); // My custom startup class.
 startup.ConfigureServices(builder.Services); // Add services to the container.
 
