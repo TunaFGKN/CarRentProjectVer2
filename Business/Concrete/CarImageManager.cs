@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Business;
 using Core.Utilities.Helpers.FileHelper;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
@@ -24,13 +26,21 @@ namespace Business.Concrete
         }
         public IResult Add(IFormFile file, CarImage carImage)
         {
+            IResult result = BusinessRules.Run(CheckIfCarImageLimit(carImage.CarId));
+            if (result != null)
+            {
+                return result;
+            }
+            carImage.ImagePath = _fileHelper.Upload(file, PathConstants.ImagesPath);
             _carImageDal.Add(carImage);
             return new SuccessResult();
         }
 
         public IResult Delete(CarImage carImage)
         {
-            throw new NotImplementedException();
+            _fileHelper.Delete(PathConstants.ImagesPath + carImage.ImagePath);
+            _carImageDal.Delete(carImage);
+            return new SuccessResult();
         }
 
         public IDataResult<List<CarImage>> GetAll()
@@ -51,6 +61,16 @@ namespace Business.Concrete
         public IResult Update(IFormFile file, CarImage carImage)
         {
             throw new NotImplementedException();
+        }
+
+        private IResult CheckIfCarImageLimit(int carId)
+        {
+            var result = _carImageDal.GetAll(c => c.CarId == carId).Count;
+            if (result >= 5)
+            {
+                return new ErrorResult();
+            }
+            return new SuccessResult();
         }
     }
 }
