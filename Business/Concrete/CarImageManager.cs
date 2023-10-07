@@ -32,6 +32,7 @@ namespace Business.Concrete
                 return result;
             }
             carImage.ImagePath = _fileHelper.Upload(file, PathConstants.ImagesPath);
+            carImage.Date = DateTime.Now;
             _carImageDal.Add(carImage);
             return new SuccessResult();
         }
@@ -45,22 +46,24 @@ namespace Business.Concrete
 
         public IDataResult<List<CarImage>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
         }
 
         public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == carId));
         }
 
         public IDataResult<CarImage> GetByImageId(int imageId)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.ImageId == imageId));
         }
 
         public IResult Update(IFormFile file, CarImage carImage)
         {
-            throw new NotImplementedException();
+            carImage.ImagePath = _fileHelper.Update(file, PathConstants.ImagesPath + carImage.ImagePath, PathConstants.ImagesPath);
+            _carImageDal.Update(carImage);
+            return new SuccessResult();
         }
 
         private IResult CheckIfCarImageLimit(int carId)
