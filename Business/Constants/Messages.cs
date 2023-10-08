@@ -23,5 +23,6 @@ namespace Business.Constants
         public static string BrandUpdated = "Brand successfully updated";
         public static string BrandsListed = "Brands listed";
         public static string ReturnDateNull = "Return date cannot be null.";
+        internal static string AuthorizationDenied = "Yetkiniz yok!";
     }
 }

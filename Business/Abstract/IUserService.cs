@@ -1,4 +1,6 @@
-﻿using Core.Utilities.Results.Concrete;
+﻿using Core.Entities.Concrete;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -16,5 +18,7 @@ namespace Business.Abstract
         Result Add(User user);
         Result Update(User user);
         Result Delete(User user);
+        DataResult<User> GetByMail(string email);
+        DataResult<List<OperationClaim>> GetClaims(User user);
     }
 }
