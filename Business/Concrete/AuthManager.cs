@@ -37,7 +37,7 @@ namespace Business.Concrete
                 Status = true
             };
             _userService.Add(user);
-            return new SuccessDataResult<User>(user, "Kayıt oldu!");
+            return new SuccessDataResult<User>(user, "Registered!");
         }
 
         public DataResult<User> Login(UserForLoginDto userForLoginDto)
@@ -45,22 +45,22 @@ namespace Business.Concrete
             var userToCheck = _userService.GetByMail(userForLoginDto.Email);
             if (userToCheck == null)
             {
-                return new ErrorDataResult<User>("Kullanıcı bulunmadı!");
+                return new ErrorDataResult<User>("User Couldn't Found!");
             }
 
             if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
             {
-                return new ErrorDataResult<User>("Şifre hatası!");
+                return new ErrorDataResult<User>("Password Error!");
             }
 
-            return new SuccessDataResult<User>(userToCheck, "Giriş başarılı!");
+            return new SuccessDataResult<User>(userToCheck, "Login Successful!");
         }
 
         public Result UserExists(string email)
         {
             if (_userService.GetByMail(email) != null)
             {
-                return new ErrorResult("Kullanıcı zaten var");
+                return new ErrorResult("This user already exist!");
             }
             return new SuccessResult();
         }
