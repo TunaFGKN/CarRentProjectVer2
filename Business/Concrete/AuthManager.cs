@@ -48,12 +48,12 @@ namespace Business.Concrete
                 return new ErrorDataResult<User>("User Couldn't Found!");
             }
 
-            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
+            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt))
             {
                 return new ErrorDataResult<User>("Password Error!");
             }
 
-            return new SuccessDataResult<User>(userToCheck, "Login Successful!");
+            return new SuccessDataResult<User>(userToCheck.Data, "Login Successful!");
         }
 
         public Result UserExists(string email)
@@ -68,7 +68,7 @@ namespace Business.Concrete
         public DataResult<AccessToken> CreateAccessToken(User user)
         {
             var claims = _userService.GetClaims(user);
-            var accessToken = _tokenHelper.CreateToken(user, claims);
+            var accessToken = _tokenHelper.CreateToken(user, claims.Data);
             return new SuccessDataResult<AccessToken>(accessToken, "Erişim tokeni oluşturuldu!");
         }
     }
