@@ -27,7 +27,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CarValidator))]
-        [CacheRemoveAspect("IProductService.Get")]
+        [CacheRemoveAspect("ICarService.Get")]
         public Result Add(Car car)
         {
             _carDal.Add(car);
@@ -73,7 +73,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.CarDetailsListed);
         }
 
-        [CacheRemoveAspect("IProductService.Get")]
+        [CacheRemoveAspect("ICarService.Get")]
         public Result Update(Car car)
         {
             _carDal.Update(car);
